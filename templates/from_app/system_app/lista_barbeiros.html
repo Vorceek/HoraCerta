@@ -1,0 +1,43 @@
+{% extends 'base/base_cliente.html' %}
+
+{% block title %}Barbeiros - Hora Certa Barber{% endblock %}
+
+{% block content %}
+<section class="hero" style="grid-template-columns: 1fr;">
+  <div class="hero-text">
+    <h1>Barbeiros</h1>
+    <p>
+      Conheça a equipe da barbearia e escolha o profissional ideal para o seu próximo corte.
+    </p>
+  </div>
+</section>
+
+<section style="margin-top: 24px;">
+  {% if barbeiros %}
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+      {% for b in barbeiros %}
+        <article class="card">
+          <div class="card-icon">💈</div>
+          <h3>{{ b.nome }}</h3>
+          {% if b.cadeira %}
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">
+              Cadeira {{ b.cadeira }}
+            </p>
+          {% endif %}
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">
+            Profissional especializado em cortes masculinos.  
+            <!-- Você pode depois adicionar campos específicos no model -->
+          </p>
+          <a href="{% url 'agendar_horario' %}" class="card-link">
+            Agendar com {{ b.nome }} →
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="font-size: 0.85rem; color: var(--text-muted);">
+      Nenhum barbeiro cadastrado no momento.
+    </p>
+  {% endif %}
+</section>
+{% endblock %}

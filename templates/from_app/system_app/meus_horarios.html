@@ -1,0 +1,80 @@
+{% extends 'base/base_cliente.html' %}
+
+{% block title %}Meus horários - Hora Certa Barber{% endblock %}
+
+{% block content %}
+<section class="hero" style="grid-template-columns: 1fr;">
+  <div class="hero-text">
+    <h1>Meus horários</h1>
+    <p>
+      Acompanhe seus próximos horários e veja o histórico de atendimentos na barbearia.
+    </p>
+    <div class="hero-actions">
+      <a href="{% url 'agendar_horario' %}" class="btn-primary">Agendar novo horário</a>
+    </div>
+  </div>
+</section>
+
+<section style="margin-top: 24px;">
+  <h2 style="font-size: 1.05rem; margin-bottom: 10px;">Próximos horários</h2>
+
+  {% if futuros %}
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+      {% for ag in futuros %}
+        <article class="card">
+          <h3 style="margin-bottom: 4px;">
+            {{ ag.servico.nome }}
+          </h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px;">
+            {{ ag.data|date:"d/m/Y" }} • {{ ag.hora|time:"H:i" }}
+          </p>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">
+            Barbeiro: {{ ag.barbeiro.nome }}
+          </p>
+          <p style="font-size: 0.8rem; margin-bottom: 10px;">
+            Status: {{ ag.get_status_display }}
+          </p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="{% url 'remarcar_horario' ag.id %}" class="card-link">Remarcar →</a>
+            <a href="{% url 'detalhe_atendimento' ag.id %}" class="card-link">Detalhes →</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="font-size: 0.85rem; color: var(--text-muted);">
+      Você não tem horários futuros agendados.
+    </p>
+  {% endif %}
+</section>
+
+<section style="margin-top: 28px;">
+  <h2 style="font-size: 1.05rem; margin-bottom: 10px;">Histórico de atendimentos</h2>
+
+  {% if passados %}
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+      {% for ag in passados %}
+        <article class="card">
+          <h3 style="margin-bottom: 4px;">
+            {{ ag.servico.nome }}
+          </h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px;">
+            {{ ag.data|date:"d/m/Y" }} • {{ ag.hora|time:"H:i" }}
+          </p>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">
+            Barbeiro: {{ ag.barbeiro.nome }}
+          </p>
+          <p style="font-size: 0.8rem; margin-bottom: 10px;">
+            Status: {{ ag.get_status_display }}
+          </p>
+          <a href="{% url 'detalhe_atendimento' ag.id %}" class="card-link">Ver detalhes →</a>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="font-size: 0.85rem; color: var(--text-muted);">
+      Ainda não há atendimentos concluídos.
+    </p>
+  {% endif %}
+</section>
+{% endblock %}

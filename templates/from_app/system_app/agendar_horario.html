@@ -1,0 +1,84 @@
+{% extends 'base/base_cliente.html' %}
+
+{% block title %}
+  {% if modo_remarcar %}Remarcar horário - Hora Certa Barber{% else %}Agendar horário - Hora Certa Barber{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-text" style="grid-column: 1 / -1; max-width: 640px;">
+    <h1>
+      {% if modo_remarcar %}
+        Remarcar horário
+      {% else %}
+        Agendar novo horário
+      {% endif %}
+    </h1>
+    <p>
+      Escolha o barbeiro, o serviço, a data e o horário desejado.
+      Você receberá a confirmação assim que o agendamento for registrado.
+    </p>
+
+    <form method="post" style="margin-top: 18px; display: grid; gap: 12px;">
+      {% csrf_token %}
+
+      <div class="input-group">
+        <label for="barbeiro">Barbeiro</label>
+        <select id="barbeiro" name="barbeiro" class="select-input" required>
+          <option value="">Selecione...</option>
+          {% for b in barbeiros %}
+            <option value="{{ b.id }}"
+              {% if agendamento and agendamento.barbeiro.id == b.id %}selected{% endif %}>
+              {{ b.nome }}{% if b.cadeira %} • Cadeira {{ b.cadeira }}{% endif %}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="servico">Serviço</label>
+        <select id="servico" name="servico" class="select-input" required>
+          <option value="">Selecione...</option>
+          {% for s in servicos %}
+            <option value="{{ s.id }}"
+              {% if agendamento and agendamento.servico.id == s.id %}selected{% endif %}>
+              {{ s.nome }} • {{ s.duracao_minutos }} min
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+        <div class="input-group">
+          <label for="data">Data</label>
+          <input
+            type="date"
+            id="data"
+            name="data"
+            required
+            value="{% if agendamento %}{{ agendamento.data|date:'Y-m-d' }}{% endif %}"
+          >
+        </div>
+
+        <div class="input-group">
+          <label for="hora">Hora</label>
+          <input
+            type="time"
+            id="hora"
+            name="hora"
+            required
+            value="{% if agendamento %}{{ agendamento.hora|time:'H:i' }}{% endif %}"
+          >
+        </div>
+      </div>
+
+      <div style="margin-top: 4px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button type="submit" class="btn-primary">
+          {% if modo_remarcar %}Salvar alteração{% else %}Confirmar agendamento{% endif %}
+        </button>
+        <a href="{% url 'meus_horarios' %}" class="btn-secondary">Voltar</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

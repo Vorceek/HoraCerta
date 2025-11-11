@@ -1,0 +1,43 @@
+{% extends 'base/base_cliente.html' %}
+
+{% block title %}Serviços - Hora Certa Barber{% endblock %}
+
+{% block content %}
+<section class="hero" style="grid-template-columns: 1fr;">
+  <div class="hero-text">
+    <h1>Serviços</h1>
+    <p>
+      Veja os serviços disponíveis, tempos médios e valores.
+    </p>
+    <div class="hero-actions">
+      <a href="{% url 'agendar_horario' %}" class="btn-primary">Agendar agora</a>
+    </div>
+  </div>
+</section>
+
+<section style="margin-top: 24px;">
+  {% if servicos %}
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+      {% for s in servicos %}
+        <article class="card">
+          <div class="card-icon">⭐</div>
+          <h3>{{ s.nome }}</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">
+            Duração aproximada: {{ s.duracao_minutos }} min
+          </p>
+          <p style="font-size: 0.9rem; margin-bottom: 10px;">
+            R$ {{ s.preco }}
+          </p>
+          <a href="{% url 'agendar_horario' %}" class="card-link">
+            Agendar este serviço →
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="font-size: 0.85rem; color: var(--text-muted);">
+      Nenhum serviço cadastrado no momento.
+    </p>
+  {% endif %}
+</section>
+{% endblock %}

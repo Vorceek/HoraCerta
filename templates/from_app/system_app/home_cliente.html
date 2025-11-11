@@ -1,0 +1,116 @@
+{% extends 'base/base_cliente.html' %}
+
+{% block title %}Início - Hora Certa Barber{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1>Olá, {{ request.user.first_name|default:"Cliente" }} 👋</h1>
+    <p>
+      Bem-vindo ao seu painel da <strong>Hora Certa Barber</strong>.
+      Aqui você acompanha seus horários, serviços favoritos e agenda tudo em poucos cliques.
+    </p>
+
+    <div class="hero-actions">
+      <a href="{% url 'agendar_horario' %}" class="btn-primary">Agendar novo horário</a>
+      <a href="{% url 'meus_horarios' %}" class="btn-secondary">Ver meus horários</a>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <h2>Próximo horário</h2>
+
+    {% if proximo_horario %}
+      <div class="hero-metrics">
+        <div class="metric">
+          <span class="metric-label">Data</span>
+          <span class="metric-value">{{ proximo_horario.data|date:"d/m/Y" }}</span>
+          <span class="metric-tag">
+            {{ proximo_horario.data|date:"l" }} • {{ proximo_horario.hora|time:"H:i" }}
+          </span>
+        </div>
+
+        <div class="metric">
+          <span class="metric-label">Barbeiro</span>
+          <span class="metric-value">{{ proximo_horario.barbeiro.nome }}</span>
+          <span class="metric-tag">Cadeira {{ proximo_horario.barbeiro.cadeira|default:"1" }}</span>
+        </div>
+
+        <div class="metric">
+          <span class="metric-label">Serviço</span>
+          <span class="metric-value">{{ proximo_horario.servico.nome }}</span>
+          <span class="metric-tag">
+            Duração aprox. {{ proximo_horario.servico.duracao_minutos }} min
+          </span>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="{% url 'meus_horarios' %}" class="btn-secondary">Ver detalhes</a>
+        <a href="{% url 'remarcar_horario' proximo_horario.id %}" class="btn-secondary">Remarcar</a>
+      </div>
+    {% else %}
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+        Você ainda não tem horário marcado.
+      </p>
+      <a href="{% url 'agendar_horario' %}" class="btn-primary">
+        Agendar agora
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="cards-grid">
+  <article class="card">
+    <div class="card-icon">✂️</div>
+    <h3>Agendar corte</h3>
+    <p>Escolha dia, horário e o seu barbeiro favorito para garantir sua vaga.</p>
+    <a href="{% url 'agendar_horario' %}" class="card-link">Agendar agora →</a>
+  </article>
+
+  <article class="card">
+    <div class="card-icon">📅</div>
+    <h3>Meus horários</h3>
+    <p>Veja todos os horários futuros e passados, com detalhes de cada atendimento.</p>
+    <a href="{% url 'meus_horarios' %}" class="card-link">Ver agenda →</a>
+  </article>
+
+  <article class="card">
+    <div class="card-icon">💈</div>
+    <h3>Barbeiros</h3>
+    <p>Conheça a equipe e veja as especialidades de cada barbeiro.</p>
+    <a href="{% url 'lista_barbeiros' %}" class="card-link">Ver barbeiros →</a>
+  </article>
+
+  <article class="card">
+    <div class="card-icon">⭐</div>
+    <h3>Serviços & planos</h3>
+    <p>Consulte valores, combos de corte + barba, assinaturas e promoções.</p>
+    <a href="{% url 'lista_servicos' %}" class="card-link">Ver serviços →</a>
+  </article>
+</section>
+
+{% if ultimos_atendimentos %}
+  <section style="margin-top: 28px;">
+    <h2 style="font-size: 1.05rem; margin-bottom: 10px;">Últimos atendimentos</h2>
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+      {% for atendimento in ultimos_atendimentos %}
+        <article class="card">
+          <h3 style="margin-bottom: 4px; font-size: 0.95rem;">
+            {{ atendimento.servico.nome }}
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px;">
+            {{ atendimento.data|date:"d/m/Y" }} • {{ atendimento.hora|time:"H:i" }}
+          </p>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">
+            Barbeiro: {{ atendimento.barbeiro.nome }}
+          </p>
+          <a href="{% url 'detalhe_atendimento' atendimento.id %}" class="card-link">
+            Ver detalhes →
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+{% endblock %}

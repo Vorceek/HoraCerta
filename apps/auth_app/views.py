@@ -42,7 +42,7 @@ class AuthView(View):
         if user is not None:
             login(request, user)
             messages.success(request, "Login realizado com sucesso!")
-            return redirect('home')  # troque para sua rota pós-login
+            return redirect('home_cliente')  # troque para sua rota pós-login
         else:
             messages.error(request, "E-mail ou senha inválidos.")
             return redirect('auth')
