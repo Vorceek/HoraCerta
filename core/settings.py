@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # Project apps
     'apps.auth_app',
     'apps.system_app',
+    'apps.home_app',
 
 ]
 
