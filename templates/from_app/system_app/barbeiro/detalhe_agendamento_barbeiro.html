@@ -1,0 +1,33 @@
+{% extends "base/base_cliente.html" %}
+{% block title %}Detalhe do agendamento{% endblock %}
+
+{% block content %}
+<section class="hero hero--simple">
+  <div class="hero-text">
+    <h1>Detalhe do agendamento</h1>
+    <p>Atualize o status do atendimento.</p>
+  </div>
+</section>
+
+<section class="section" style="max-width:600px;">
+  <article class="hero-card">
+    <h2>Informações</h2>
+
+    <p><strong>Cliente:</strong> {{ agendamento.cliente.first_name|default:agendamento.cliente.username }}</p>
+    <p><strong>Serviço:</strong> {{ agendamento.servico.nome }}</p>
+    <p><strong>Data:</strong> {{ agendamento.data|date:"d/m/Y" }}</p>
+    <p><strong>Hora:</strong> {{ agendamento.hora|time:"H:i" }}</p>
+
+    <div style="margin-top:8px;">
+      <span class="pill warn">{{ agendamento.get_status_display }}</span>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+      <a class="btn-secondary" href="{% url 'alterar_status_agendamento' agendamento.id 'CONFIRMADO' %}">Confirmar</a>
+      <a class="btn-secondary" href="{% url 'alterar_status_agendamento' agendamento.id 'CONCLUIDO' %}">Concluir</a>
+      <a class="btn-secondary" href="{% url 'alterar_status_agendamento' agendamento.id 'CANCELADO' %}">Cancelar</a>
+      <a class="btn-secondary" href="{% url 'agenda_barbeiro' %}">Voltar</a>
+    </div>
+  </article>
+</section>
+{% endblock %}

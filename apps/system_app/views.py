@@ -1,9 +1,10 @@
+from django.db.models import Q
+from django.utils import timezone
+from django.http import JsonResponse
+from django.core.paginator import Paginator
 # app_barbearia/views.py
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
-from django.db.models import Q
-from django.core.paginator import Paginator
 
 from .models import Agendamento, Barbearia, Barbeiro, Servico
 
@@ -69,11 +70,12 @@ def home_cliente(request):
         "year": agora.year,
     }
 
-    return render(request, "from_app/system_app/home_cliente.html", contexto)
+    return render(request, "from_app/system_app/cliente/home_cliente.html", contexto)
 
 
 @login_required
 def agendar_horario(request):
+    barbearias = Barbearia.objects.all().order_by("nome")
     barbeiros = Barbeiro.objects.all().order_by('nome')
     servicos = Servico.objects.all().order_by('nome')
     agora = timezone.localtime()
@@ -99,12 +101,13 @@ def agendar_horario(request):
             return redirect('meus_horarios')
 
     contexto = {
+        "barbearias": barbearias,
         'barbeiros': barbeiros,
         'servicos': servicos,
         'year': agora.year,
         'modo_remarcar': False,
     }
-    return render(request, 'from_app/system_app/agendar_horario.html', contexto)
+    return render(request, 'from_app/system_app/cliente/agendar_horario.html', contexto)
 
 
 @login_required
@@ -131,7 +134,7 @@ def meus_horarios(request):
         'passados': passados,
         'year': agora.year,
     }
-    return render(request, 'from_app/system_app/meus_horarios.html', contexto)
+    return render(request, 'from_app/system_app/cliente/meus_horarios.html', contexto)
 
 
 @login_required
@@ -147,7 +150,7 @@ def lista_barbeiros(request):
 def lista_servicos(request):
     servicos = Servico.objects.all().order_by('nome')
     agora = timezone.localtime()
-    return render(request, 'from_app/system_app/lista_servicos.html', {
+    return render(request, 'from_app/system_app/cliente/lista_servicos.html', {
         'servicos': servicos,
         'year': agora.year,
     })
@@ -186,7 +189,7 @@ def remarcar_horario(request, agendamento_id):
         'modo_remarcar': True,
         'year': agora.year,
     }
-    return render(request, 'from_app/system_app/agendar_horario.html', contexto)
+    return render(request, 'from_app/system_app/cliente/agendar_horario.html', contexto)
 
 
 @login_required
@@ -197,7 +200,14 @@ def detalhe_atendimento(request, agendamento_id):
         cliente=request.user,
     )
     agora = timezone.localtime()
-    return render(request, 'from_app/system_app/detalhe_atendimento.html', {
+    return render(request, 'from_app/system_app/cliente/detalhe_atendimento.html', {
         'agendamento': agendamento,
         'year': agora.year,
     })
+
+def barbeiros_por_barbearia(request):
+    barbearia_id = request.GET.get("barbearia_id")
+    barbeiros = Barbeiro.objects.filter(barbearia_id=barbearia_id).order_by("nome")
+
+    data = [{"id": b.id, "nome": b.nome, "cadeira": b.cadeira} for b in barbeiros]
+    return JsonResponse(data, safe=False)

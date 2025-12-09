@@ -1,0 +1,65 @@
+{% extends "base/base_cliente.html" %}
+{% block title %}Agenda do barbeiro{% endblock %}
+
+{% block content %}
+<section class="hero hero--simple">
+  <div class="hero-text">
+    <h1>Minha agenda</h1>
+    <p>Gerencie seus horários e atualize o status com 1 clique.</p>
+
+    <form class="filters" method="get" style="margin-top:12px;">
+      <input type="date" name="data" value="{{ q_data }}">
+      <select name="status">
+        <option value="">Todos</option>
+        <option value="PENDENTE" {% if q_status == "PENDENTE" %}selected{% endif %}>Pendentes</option>
+        <option value="CONFIRMADO" {% if q_status == "CONFIRMADO" %}selected{% endif %}>Confirmados</option>
+        <option value="CONCLUIDO" {% if q_status == "CONCLUIDO" %}selected{% endif %}>Concluídos</option>
+        <option value="CANCELADO" {% if q_status == "CANCELADO" %}selected{% endif %}>Cancelados</option>
+      </select>
+      <button type="submit">Filtrar</button>
+    </form>
+  </div>
+</section>
+
+<section class="section">
+  <h2 style="font-size:1.1rem;margin-bottom:10px;">Futuros</h2>
+  <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+    {% for ag in futuros %}
+      <article class="card">
+        <h3>{{ ag.servico.nome }}</h3>
+        <p>{{ ag.data|date:"d/m/Y" }} • {{ ag.hora|time:"H:i" }}</p>
+        <p>Cliente: {{ ag.cliente.first_name|default:ag.cliente.username }}</p>
+
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="pill warn">{{ ag.get_status_display }}</span>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <a class="card-link" href="{% url 'alterar_status_agendamento' ag.id 'CONFIRMADO' %}">Confirmar →</a>
+          <a class="card-link" href="{% url 'alterar_status_agendamento' ag.id 'CANCELADO' %}">Cancelar →</a>
+          <a class="card-link" href="{% url 'detalhe_agendamento_barbeiro' ag.id %}">Detalhes →</a>
+        </div>
+      </article>
+    {% empty %}
+      <div class="empty">Nenhum agendamento futuro.</div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <h2 style="font-size:1.1rem;margin-bottom:10px;">Histórico</h2>
+  <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+    {% for ag in passados %}
+      <article class="card">
+        <h3>{{ ag.servico.nome }}</h3>
+        <p>{{ ag.data|date:"d/m/Y" }} • {{ ag.hora|time:"H:i" }}</p>
+        <p>Cliente: {{ ag.cliente.first_name|default:ag.cliente.username }}</p>
+        <span class="pill success">{{ ag.get_status_display }}</span>
+        <a class="card-link" href="{% url 'detalhe_agendamento_barbeiro' ag.id %}">Abrir →</a>
+      </article>
+    {% empty %}
+      <div class="empty">Sem histórico ainda.</div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

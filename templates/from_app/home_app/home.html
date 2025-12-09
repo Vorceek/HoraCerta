@@ -3,381 +3,478 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BarberFinder • Home</title>
+  <title>BarberFinder • Agende com barbearias premium</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== Reset básico ===== */
-    *,
-    *::before,
-    *::after { margin:0; padding:0; box-sizing:border-box; }
+    /* ===== Reset ===== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    :root {
-      --bg: #f5f7fb;
-      --bg-card: #ffffff;
-      --accent: #4f46e5;
-      --accent-soft: rgba(79, 70, 229, 0.12);
-      --accent-strong: #4338ca;
+    :root{
+      --bg: #070b15;
+      --bg-2: #0a0f1f;
+      --bg-3: #0c1226;
 
-      --text: #0f172a;
-      --text-muted: #475569;
+      --card: rgba(12,18,38,0.75);
+      --card-strong: rgba(14,21,44,0.9);
+      --glass: rgba(255,255,255,0.03);
 
-      --border: #e2e8f0;
-      --error: #dc2626;
-      --success: #16a34a;
-      --warn: #b45309;
+      --accent: #7c3aed;
+      --accent-strong: #5b21b6;
+      --accent-2: #06b6d4;
+      --accent-soft: rgba(124,58,237,0.16);
+      --accent-soft-2: rgba(6,182,212,0.14);
 
-      --shadow-soft: 0 14px 34px rgba(15, 23, 42, 0.08);
-      --radius-lg: 18px;
-      --radius-md: 12px;
+      --text: #e6eaf4;
+      --muted: #9aa6bf;
+      --border: rgba(148,163,184,0.18);
 
-      --transition-fast: 0.25s ease;
+      --success: #22c55e;
+      --warn: #f59e0b;
+
+      --radius-lg: 20px;
+      --radius-md: 14px;
+
+      --shadow-sm: 0 10px 28px rgba(0,0,0,0.45);
+      --shadow-md: 0 18px 60px rgba(0,0,0,0.6);
+
+      --transition: .22s ease;
     }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #ffffff, #eef2f7 60%);
-      color: var(--text);
+    body{
+      font-family:'Poppins',sans-serif;
+      color:var(--text);
+      min-height:100vh;
+      background:
+        radial-gradient(1100px circle at -10% -20%, rgba(124,58,237,0.22), transparent 55%),
+        radial-gradient(900px circle at 110% -10%, rgba(6,182,212,0.20), transparent 60%),
+        radial-gradient(900px circle at 50% 120%, rgba(124,58,237,0.16), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 60%, var(--bg-3) 100%);
     }
-    a { color: inherit; text-decoration: none; }
+    a{ color:inherit; text-decoration:none; }
 
-    /* ===== Layout base ===== */
     .container{
-      max-width:1200px;
-      margin:0 auto;
-      padding: 22px 20px 40px;
+      max-width:1200px; margin:0 auto;
+      padding: 20px 20px 54px;
     }
 
-    /* ===== HEADER ===== */
-    .app-header {
-      position: sticky; top:0; z-index:20;
-      background: rgba(255,255,255,0.9);
-      border-bottom: 1px solid var(--border);
+    /* ===== Header SaaS Dark ===== */
+    .app-header{
+      position:sticky; top:0; z-index:30;
+      background: rgba(7,11,21,0.75);
+      border-bottom:1px solid var(--border);
       backdrop-filter: blur(10px);
     }
-    .app-header-inner {
-      max-width: 1200px; margin:0 auto; padding: 14px 20px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    .app-header-inner{
+      max-width:1200px; margin:0 auto; padding: 12px 20px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .app-logo {
-      display:inline-flex; align-items:center; gap:10px;
-      font-weight:700; letter-spacing:.3px;
+    .app-logo{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.3px;
     }
-    .logo-mark {
-      width:36px; height:36px; border-radius:999px; display:grid; place-items:center;
-      background: radial-gradient(circle at top, var(--accent-strong), #312e81);
-      color:#fff; font-weight:700;
-      box-shadow:0 10px 22px rgba(67,56,202,.35);
-    }
-    .header-actions { display:flex; align-items:center; gap:8px; }
-    .btn-header{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:9px 14px; border-radius:999px; font-size:.9rem; font-weight:600;
-      border:1px solid var(--border); background:#fff; box-shadow:var(--shadow-soft);
-      cursor:pointer; transition:transform .12s ease-out, background var(--transition-fast);
-      white-space: nowrap;
-    }
-    .btn-header:hover{ transform:translateY(-1px); background:#f8fafc; }
-
-    /* ===== HERO ===== */
-    .hero {
-      position: relative;
-      min-height: 44vh;
+    .logo-mark{
+      width:36px; height:36px; border-radius:999px;
       display:grid; place-items:center;
-      text-align:center;
-      padding: 48px 20px 30px;
+      background: radial-gradient(circle at top, var(--accent), var(--accent-strong));
+      color:#fff; font-weight:900;
+      box-shadow: 0 12px 25px rgba(124,58,237,.45);
+    }
+    .header-actions{
+      display:flex; gap:6px; flex-wrap:wrap; align-items:center;
+      background: rgba(255,255,255,0.02);
+      padding:4px;
+      border:1px solid var(--border);
+      border-radius:999px;
+    }
+    .btn-header{
+      padding:8px 12px; border-radius:999px;
+      font-size:.9rem; font-weight:700;
+      color:var(--text);
+      border:1px solid transparent;
+      transition: background var(--transition), transform .12s ease-out, color var(--transition);
+      white-space:nowrap;
+    }
+    .btn-header:hover{
+      background: rgba(124,58,237,0.12);
+      color:#fff; transform:translateY(-1px);
+    }
+    .btn-header.primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color:#fff; border-color:transparent;
+      box-shadow:0 12px 26px rgba(124,58,237,.45);
+    }
+    .btn-header.primary:hover{ filter:brightness(1.06); }
+
+    /* ===== Hero IA / SaaS ===== */
+    .hero{ padding: 44px 0 14px; }
+    .hero-wrap{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px; align-items:center;
+      border-radius: 26px;
+      padding: 26px;
       background:
-        radial-gradient(1000px circle at 10% -10%, rgba(79,70,229,0.22), transparent 55%),
-        radial-gradient(900px circle at 90% 0%, rgba(6,182,212,0.16), transparent 60%),
-        linear-gradient(180deg, #ffffff 0%, #eef2f7 100%);
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
+        radial-gradient(800px circle at 0% 0%, rgba(124,58,237,0.14), transparent 60%),
+        radial-gradient(800px circle at 100% 0%, rgba(6,182,212,0.12), transparent 60%);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .hero-wrap::after{
+      /* brilho suave estilo IA */
+      content:""; position:absolute; inset:-30%;
+      background:
+        conic-gradient(from 140deg,
+          transparent 0 20%,
+          rgba(124,58,237,0.12) 40%,
+          transparent 60%,
+          rgba(6,182,212,0.12) 80%,
+          transparent 100%);
+      filter: blur(70px);
+      z-index:-1;
+      animation: floatGlow 10s ease-in-out infinite alternate;
+    }
+    @keyframes floatGlow{
+      from{ transform: translateY(-2%) rotate(0deg); }
+      to{ transform: translateY(2%) rotate(8deg); }
     }
 
-    .hero-card {
-      width:min(980px,100%);
-      padding:24px 22px;
-      border-radius:clamp(16px,2vw,22px);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98)),
-        url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=1400&auto=format&fit=crop')
-          center/cover no-repeat;
-      border:1px solid var(--border);
-      box-shadow:var(--shadow-soft);
-      position:relative; overflow:hidden; isolation:isolate;
-    }
-    .hero-card::after{
-      content:""; position:absolute; inset:0;
-      background: linear-gradient(
-        180deg,
-        rgba(15,23,42,0.55),
-        rgba(15,23,42,0.18) 55%,
-        rgba(255,255,255,0.85) 100%
-      );
-      z-index:-1;
-    }
-    .hero-content{ color:#0b1020; display:grid; gap:10px; padding:8px; }
     .hero-badge{
-      margin:0 auto; display:inline-flex; align-items:center; gap:8px;
-      padding:6px 12px; font-size:.78rem; font-weight:600;
-      color:var(--accent-strong); background:rgba(255,255,255,0.9);
-      border:1px solid var(--border); border-radius:999px; box-shadow:var(--shadow-soft);
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      font-size:.78rem; font-weight:800;
+      color:#fff;
+      background: rgba(124,58,237,0.16);
+      border:1px solid var(--border);
+      width:max-content;
     }
     .hero h1{
-      font-size:clamp(1.7rem,3vw,2.6rem);
-      font-weight:700; color:#0f172a;
-      text-shadow:0 6px 18px rgba(15,23,42,0.12);
+      margin-top:10px;
+      font-size:clamp(2rem,3.3vw,3rem);
+      font-weight:900; line-height:1.06;
+      letter-spacing:.2px;
+      text-shadow:0 10px 40px rgba(0,0,0,0.6);
     }
     .hero p{
-      font-size:clamp(1rem,1.4vw,1.1rem);
-      color:#0f172a; opacity:.9;
+      margin-top:8px;
+      font-size:clamp(1rem,1.2vw,1.15rem);
+      color:var(--muted);
+      line-height:1.6;
+      max-width: 55ch;
     }
+
     .hero-actions{
-      margin-top:6px;
-      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+      margin-top:14px;
+      display:flex; gap:10px; flex-wrap:wrap;
     }
     .btn-primary, .btn-secondary{
       display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 16px; border-radius:999px;
-      font-size:.95rem; font-weight:600; cursor:pointer;
-      transition: transform .12s ease-out, box-shadow var(--transition-fast), background var(--transition-fast);
-      border:1px solid transparent; white-space: nowrap;
+      padding:11px 17px; border-radius:999px;
+      font-size:.95rem; font-weight:800; cursor:pointer;
+      transition: transform .12s ease-out, box-shadow var(--transition), background var(--transition), border-color var(--transition);
+      border:1px solid transparent; white-space:nowrap;
     }
     .btn-primary{
       background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-      color:#fff; box-shadow:0 12px 28px rgba(79,70,229,0.30);
+      color:#fff;
+      box-shadow:
+        0 14px 30px rgba(124,58,237,.55),
+        inset 0 0 0 1px rgba(255,255,255,0.06);
     }
-    .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 18px 40px rgba(79,70,229,0.35); }
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:
+        0 18px 44px rgba(124,58,237,.65),
+        inset 0 0 0 1px rgba(255,255,255,0.10);
+      filter:brightness(1.03);
+    }
     .btn-secondary{
-      background:#fff; border-color:var(--border);
-      color:var(--text); box-shadow:var(--shadow-soft);
+      background: rgba(255,255,255,0.03);
+      border-color: var(--border);
+      color:#fff;
+      box-shadow: var(--shadow-sm);
     }
-    .btn-secondary:hover{ background:#f8fafc; transform:translateY(-1px); }
-
-    /* ===== DASHBOARD (cliente) ===== */
-    .dash-grid{
-      display:grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap:18px;
-      margin-top: 6px;
+    .btn-secondary:hover{
+      background: rgba(255,255,255,0.06);
+      transform:translateY(-1px);
+      border-color: rgba(124,58,237,0.5);
     }
 
-    .dash-card{
-      background:var(--bg-card);
+    /* painel lateral do hero */
+    .hero-panel{
+      border-radius:20px;
+      background: var(--card);
       border:1px solid var(--border);
-      border-radius:var(--radius-lg);
-      box-shadow:var(--shadow-soft);
-      padding:16px;
-      display:grid;
-      gap:10px;
+      padding:14px;
+      display:grid; gap:10px;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
+      min-height: 220px;
     }
+    .hero-stat-row{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+    }
+    .hero-stat{
+      padding:12px;
+      border-radius:14px;
+      background: rgba(255,255,255,0.03);
+      border:1px solid var(--border);
+      display:grid; gap:4px; text-align:center;
+    }
+    .hero-stat strong{
+      font-size:1.25rem; font-weight:900;
+      background: linear-gradient(90deg, #fff, #cbd5ff);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero-stat span{ font-size:.85rem; color:var(--muted); }
 
-    .dash-title{
-      font-size:1.05rem;
-      font-weight:700;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:8px;
-    }
-    .dash-sub{
-      font-size:.9rem;
-      color:var(--text-muted);
-    }
-
-    .status-pill{
-      display:inline-flex; align-items:center; gap:6px;
-      padding:4px 8px; border-radius:999px; font-size:.78rem; font-weight:700;
-      border:1px solid var(--border); background:#f8fafc; color:var(--text);
-      white-space: nowrap;
-    }
-    .status-pill.success{ background:#dcfce7; border-color:#bbf7d0; color:var(--success); }
-    .status-pill.warn{ background:#fef3c7; border-color:#fde68a; color:var(--warn); }
-
-    .next-box{
-      display:grid; gap:8px;
+    .hero-next{
       padding:12px;
       border-radius:14px;
       border:1px dashed var(--border);
-      background:#fbfdff;
+      background: rgba(255,255,255,0.02);
+      display:grid; gap:6px;
     }
-    .next-line{
-      display:flex; align-items:center; justify-content:space-between; gap:8px;
-      font-size:.95rem;
+    .hero-next .line{
+      display:flex; justify-content:space-between; gap:8px; font-size:.95rem;
     }
-    .next-label{ color:var(--text-muted); font-size:.85rem; }
+    .pill{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 8px; border-radius:999px; font-size:.78rem; font-weight:800;
+      border:1px solid var(--border); background: rgba(255,255,255,0.03);
+      white-space:nowrap;
+    }
+    .pill.success{ background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.35); color:var(--success); }
+    .pill.warn{ background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.35); color:var(--warn); }
 
-    .mini-list{
-      display:grid; gap:8px;
-    }
-    .mini-item{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:#fff;
-      transition: background var(--transition-fast), transform .12s ease-out;
-    }
-    .mini-item:hover{ background:#f8fafc; transform:translateY(-1px); }
-    .mini-main{ display:grid; gap:2px; }
-    .mini-title{ font-weight:700; font-size:.95rem; }
-    .mini-meta{ color:var(--text-muted); font-size:.85rem; }
-
-    /* ===== Seção Barbearias ===== */
+    /* ===== Seções ===== */
+    .section{ margin-top:30px; }
     .section-head{
       display:flex; align-items:end; justify-content:space-between;
-      gap:14px; flex-wrap:wrap; margin-top: 26px; margin-bottom:14px;
+      gap:12px; flex-wrap:wrap; margin-bottom:12px;
     }
-    h2{ font-size:clamp(1.4rem,2vw,1.9rem); font-weight:700; }
-    .subtitle{ font-size:.95rem; color:var(--text-muted); }
+    h2{
+      font-size:clamp(1.45rem,2vw,1.95rem);
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .subtitle{ font-size:.95rem; color:var(--muted); }
 
-    /* filtros */
+    /* features mais ia/saas */
+    .features{
+      display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+    .feature{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding:16px;
+      box-shadow: var(--shadow-sm);
+      display:grid; gap:8px; min-height:148px;
+      transition: transform .12s ease-out, box-shadow var(--transition), border-color var(--transition);
+      position:relative; overflow:hidden;
+    }
+    .feature::after{
+      content:""; position:absolute; inset:-40% -60%;
+      background:
+        radial-gradient(400px circle at 0% 0%, rgba(124,58,237,.18), transparent 60%),
+        radial-gradient(420px circle at 100% 0%, rgba(6,182,212,.16), transparent 62%);
+      filter: blur(30px);
+      opacity:.7;
+      z-index:0;
+    }
+    .feature > *{ position:relative; z-index:1; }
+
+    .feature:hover{
+      transform:translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(124,58,237,0.5);
+    }
+    .feature-icon{
+      width:44px; height:44px; border-radius:12px;
+      display:grid; place-items:center; font-size:1.25rem;
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent-soft-2));
+      color:#fff; border:1px solid var(--border);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .feature h3{ font-size:1.06rem; font-weight:900; }
+    .feature p{ color:var(--muted); font-size:.95rem; line-height:1.6; }
+
+    /* ===== Filtros dark glass ===== */
     .filters{
-      width:min(640px,100%);
+      width:min(700px,100%);
       display:grid; grid-template-columns:1fr auto auto; gap:8px;
-      background:#fff; border:1px solid var(--border);
-      border-radius:999px; padding:6px; box-shadow:var(--shadow-soft);
+      background: var(--card-strong);
+      border:1px solid var(--border);
+      border-radius:999px; padding:6px;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
     }
     .filters input{
       border:none; outline:none; padding:8px 12px; font-size:.95rem;
-      border-radius:999px; background:transparent; color:var(--text);
+      border-radius:999px; background:transparent; color:#fff;
     }
     .filters select{
-      border:1px solid var(--border); background:#fff; padding:8px 10px;
-      border-radius:999px; font-size:.9rem; color:var(--text); outline:none; cursor:pointer;
+      border:1px solid var(--border); background: rgba(255,255,255,0.03);
+      padding:8px 10px; border-radius:999px;
+      font-size:.9rem; color:#fff; outline:none; cursor:pointer;
     }
     .filters button{
-      border:none; background:var(--accent); color:#fff; font-weight:600;
+      border:none; background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color:#fff; font-weight:800;
       padding:9px 14px; border-radius:999px; cursor:pointer;
-      transition:background var(--transition-fast), transform .12s ease-out;
+      transition: transform .12s ease-out, filter var(--transition);
+      white-space:nowrap;
+      box-shadow: 0 10px 22px rgba(124,58,237,.45);
     }
-    .filters button:hover{ background:var(--accent-strong); transform:translateY(-1px); }
+    .filters button:hover{ transform:translateY(-1px); filter:brightness(1.06); }
 
+    /* ===== Grid barbearias premium dark ===== */
     .grid{
-      margin-top:16px;
+      margin-top:14px;
       display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
-      gap:18px;
+      gap:16px;
     }
-
     .card{
-      background:var(--bg-card);
-      border-radius:var(--radius-lg);
+      background: var(--card);
+      border-radius: var(--radius-lg);
       overflow:hidden;
       border:1px solid var(--border);
-      box-shadow:var(--shadow-soft);
-      transition:transform .16s ease-out, box-shadow var(--transition-fast), border-color var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+      transition:transform .16s ease-out, box-shadow var(--transition), border-color var(--transition);
       display:grid; grid-template-rows:auto 1fr;
+      backdrop-filter: blur(8px);
     }
     .card:hover{
       transform:translateY(-4px);
-      border-color:rgba(79,70,229,0.45);
-      box-shadow:0 18px 40px rgba(15,23,42,0.12);
+      border-color: rgba(124,58,237,.6);
+      box-shadow: var(--shadow-md);
     }
-    .card-media{ position:relative; height:190px; background:#e2e8f0; }
+    .card-media{ position:relative; height:185px; background:#0b1020; }
     .card-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+
     .badge-top{
       position:absolute; top:12px; left:12px;
-      padding:6px 10px; font-size:.78rem; font-weight:700;
-      background:rgba(255,255,255,0.95); border:1px solid var(--border);
-      border-radius:999px; box-shadow:var(--shadow-soft);
+      padding:6px 10px; font-size:.78rem; font-weight:800;
+      background:rgba(8,12,24,0.7);
+      border:1px solid var(--border);
+      border-radius:999px;
+      backdrop-filter: blur(6px);
+      box-shadow: var(--shadow-sm);
     }
+
     .card-body{ padding:14px 14px 16px; display:grid; gap:8px; }
     .card-title{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-    .card-body h3{ font-size:1.15rem; font-weight:700; }
+    .card-body h3{
+      font-size:1.12rem; font-weight:900; letter-spacing:.2px;
+    }
     .rating{
       display:inline-flex; align-items:center; gap:6px;
-      font-size:.9rem; font-weight:700; color:#b45309;
-      background:#fef3c7; padding:4px 8px;
-      border-radius:999px; border:1px solid #fde68a;
+      font-size:.88rem; font-weight:900;
+      color:#fbbf24;
+      background: rgba(245,158,11,.12);
+      padding:4px 8px; border-radius:999px;
+      border:1px solid rgba(245,158,11,.35);
       white-space: nowrap;
     }
-    .address{ font-size:.95rem; color:var(--text-muted); line-height:1.35; min-height:2.6em; }
-    .card-actions{ margin-top:4px; display:flex; gap:8px; flex-wrap:wrap; }
+    .address{
+      font-size:.95rem; color:var(--muted);
+      line-height:1.4; min-height:2.6em;
+    }
+
+    .card-actions{
+      margin-top:4px; display:flex; gap:8px; flex-wrap:wrap;
+    }
     .btn-details{
-      padding:9px 12px; border-radius:10px; font-size:.9rem; font-weight:600;
-      border:1px solid var(--border); background:#fff;
-      transition:background var(--transition-fast), transform .12s ease-out;
+      padding:9px 12px; border-radius:10px;
+      font-size:.9rem; font-weight:800;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      transition:background var(--transition), transform .12s ease-out, border-color var(--transition);
       white-space: nowrap;
     }
-    .btn-details:hover{ background:#f8fafc; transform:translateY(-1px); }
+    .btn-details:hover{
+      background: rgba(255,255,255,0.06);
+      transform:translateY(-1px);
+      border-color: rgba(124,58,237,0.55);
+    }
 
     .empty{
-      margin-top:14px; padding:18px; border-radius:14px;
-      background:#fff; border:1px dashed var(--border);
-      color:var(--text-muted);
+      margin-top:12px; padding:16px; border-radius:14px;
+      background: rgba(255,255,255,0.03);
+      border:1px dashed var(--border);
+      color:var(--muted);
     }
 
-    /* ===== PAGINAÇÃO ===== */
+    /* Paginação dark clean */
     .pagination{
-      margin-top:22px;
+      margin-top:20px;
       display:flex; align-items:center; justify-content:center;
-      gap:10px; flex-wrap:wrap;
+      gap:8px; flex-wrap:wrap;
     }
     .page-btn{
-      padding:8px 12px; border-radius:999px; border:1px solid var(--border);
-      background:#fff; font-size:.9rem; font-weight:600; box-shadow:var(--shadow-soft);
-      transition:transform .12s ease-out, background var(--transition-fast);
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      font-size:.9rem; font-weight:800;
+      box-shadow: var(--shadow-sm);
+      transition:transform .12s ease-out, background var(--transition), border-color var(--transition);
       white-space: nowrap;
     }
-    .page-btn:hover{ background:#f8fafc; transform:translateY(-1px); }
+    .page-btn:hover{
+      background: rgba(255,255,255,0.06);
+      transform:translateY(-1px);
+      border-color: rgba(124,58,237,0.55);
+    }
     .page-btn.disabled{ opacity:.5; cursor:not-allowed; box-shadow:none; }
 
     .page-numbers{
       display:inline-flex; align-items:center; gap:6px; padding:6px;
-      background:#fff; border:1px solid var(--border);
-      border-radius:999px; box-shadow:var(--shadow-soft);
+      background: rgba(255,255,255,0.03);
+      border:1px solid var(--border);
+      border-radius:999px;
+      box-shadow: var(--shadow-sm);
     }
     .page-num{
       min-width:34px; height:34px; display:grid; place-items:center;
-      border-radius:999px; font-weight:700; font-size:.9rem;
-      color:var(--text); border:1px solid transparent;
-      transition:background var(--transition-fast), color var(--transition-fast);
+      border-radius:999px; font-weight:900; font-size:.9rem;
+      color:#fff; border:1px solid transparent;
+      transition:background var(--transition), color var(--transition), border-color var(--transition);
     }
-    .page-num:hover{ background:#eef2ff; color:var(--accent-strong); }
+    .page-num:hover{ background: rgba(124,58,237,.16); border-color: rgba(124,58,237,.45); }
     .page-num.active{
       background:linear-gradient(135deg, var(--accent), var(--accent-strong));
-      color:#fff; box-shadow:0 8px 16px rgba(79,70,229,.25);
+      color:#fff; box-shadow:0 8px 16px rgba(124,58,237,.55);
     }
-    .page-ellipsis{ padding:0 6px; color:var(--text-muted); font-weight:700; }
+    .page-ellipsis{ padding:0 6px; color:var(--muted); font-weight:900; }
 
-    /* ===== Skeleton ===== */
-    .hidden{ display:none !important; }
-    .skeleton-block, .skeleton-line, .skeleton-pill{
-      background: linear-gradient(90deg, #eef2f7 0%, #f8fafc 45%, #eef2f7 100%);
-      background-size:200% 100%;
-      animation: shimmer 1.2s infinite linear;
-      border-radius:10px;
-    }
-    .skeleton-block{ height:190px; }
-    .skeleton-line{ height:12px; margin-top:10px; }
-    .skeleton-pill{ height:34px; border-radius:999px; }
-    .skeleton-actions{ margin-top:12px; display:flex; gap:8px; }
-    .w-90{ width:90%; } .w-70{ width:70%; } .w-40{ width:40%; } .w-30{ width:30%; }
-
-    @keyframes shimmer{
-      0%{ background-position:200% 0; }
-      100%{ background-position:-200% 0; }
-    }
-
-    /* ===== FOOTER ===== */
+    /* Footer dark minimal */
     footer{
-      margin-top: 26px;
+      margin-top: 34px;
       border-top:1px solid var(--border);
-      background: rgba(255,255,255,0.95);
+      background: rgba(7,11,21,0.9);
     }
     .footer-inner{
       max-width:1200px; margin:0 auto; padding:18px 20px;
       display:flex; align-items:center; justify-content:space-between;
-      gap:10px; color:var(--text-muted); font-size:.9rem; flex-wrap:wrap;
+      gap:10px; color:var(--muted); font-size:.9rem; flex-wrap:wrap;
     }
 
-    /* ===== Responsivo ===== */
+    /* Responsivo */
     @media (max-width: 1024px){
-      .dash-grid{ grid-template-columns: 1fr; }
+      .hero-wrap{ grid-template-columns:1fr; }
+      .features{ grid-template-columns:1fr; }
     }
-    @media (max-width:768px){
+    @media (max-width: 768px){
       .filters{ grid-template-columns:1fr; border-radius:16px; }
       .filters select, .filters button, .filters input{ border-radius:12px; }
-      .hero{ min-height:36vh; }
-      .hero-card{ padding:20px 16px; }
+      .header-actions{ border-radius:16px; }
     }
   </style>
 </head>
@@ -392,112 +489,123 @@
         <span>BarberFinder</span>
       </div>
 
-      <div class="header-actions">
+      <nav class="header-actions">
         <a class="btn-header" href="{% url 'home_cliente' %}">Início</a>
-        <a class="btn-header" href="{% url 'agendar_horario' %}">Agendar</a>
-        <a class="btn-header" href="{% url 'meus_horarios' %}">Meus horários</a>
+        <a class="btn-header" href="#beneficios">Benefícios</a>
+        <a class="btn-header" href="#barbearias">Barbearias</a>
         <a class="btn-header" href="{% url 'lista_barbeiros' %}">Barbeiros</a>
         <a class="btn-header" href="{% url 'lista_servicos' %}">Serviços</a>
-      </div>
+        <a class="btn-header primary" href="{% url 'agendar_horario' %}">Agendar</a>
+      </nav>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-card">
-      <div class="hero-content">
-        <div class="hero-badge">✂️ Bem-vindo, {{ request.user.first_name|default:request.user.username }}!</div>
-        <h1>Seu painel BarberFinder</h1>
-        <p>Agende, acompanhe seus horários e encontre as melhores barbearias.</p>
-
-        <div class="hero-actions">
-          <a class="btn-primary" href="{% url 'agendar_horario' %}">Agendar agora</a>
-          <a class="btn-secondary" href="#barbearias">Explorar barbearias</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DASHBOARD -->
   <main class="container">
-    <div class="dash-grid">
 
-      <!-- Próximo horário -->
-      <section class="dash-card">
-        <div class="dash-title">
-          <span>Próximo horário</span>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-wrap">
+        <div>
+          <div class="hero-badge">✂️ Plataforma de agendamento inteligente</div>
+          <h1>Seu corte, seu horário, do seu jeito.</h1>
+          <p>
+            Encontre barbearias bem avaliadas, escolha um barbeiro e agende em poucos cliques.
+            Rápido, confiável e sem conversa no WhatsApp.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn-primary" href="{% url 'agendar_horario' %}">Agendar agora</a>
+            <a class="btn-secondary" href="#barbearias">Explorar barbearias</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <div class="hero-stat-row">
+            <div class="hero-stat">
+              <strong>{{ page_obj.paginator.count }}</strong>
+              <span>Barbearias</span>
+            </div>
+            <div class="hero-stat">
+              <strong>{{ ultimos_atendimentos|length }}</strong>
+              <span>Atendimentos</span>
+            </div>
+            <div class="hero-stat">
+              <strong>24/7</strong>
+              <span>Agenda online</span>
+            </div>
+          </div>
+
           {% if proximo_horario %}
-            <span class="status-pill warn">⏳ {{ proximo_horario.status }}</span>
-          {% else %}
-            <span class="status-pill">Sem agendamentos</span>
-          {% endif %}
-        </div>
-
-        {% if proximo_horario %}
-          <div class="next-box">
-            <div class="next-line">
-              <div>
-                <div class="next-label">Data</div>
-                <strong>{{ proximo_horario.data|date:"d/m/Y" }}</strong>
-              </div>
-              <div>
-                <div class="next-label">Hora</div>
-                <strong>{{ proximo_horario.hora|time:"H:i" }}</strong>
-              </div>
+          <div class="hero-next">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong>Próximo horário</strong>
+              <span class="pill warn">{{ proximo_horario.status }}</span>
             </div>
-
-            <div class="next-line">
-              <div>
-                <div class="next-label">Barbeiro</div>
-                <strong>{{ proximo_horario.barbeiro.nome }}</strong>
-              </div>
-              <div>
-                <div class="next-label">Serviço</div>
-                <strong>{{ proximo_horario.servico.nome }}</strong>
-              </div>
+            <div class="line">
+              <span>{{ proximo_horario.data|date:"d/m/Y" }}</span>
+              <span>{{ proximo_horario.hora|time:"H:i" }}</span>
             </div>
-
-            <div class="next-line">
-              <a class="btn-primary" href="{% url 'meus_horarios' %}">Gerenciar agendamento</a>
-              <a class="btn-secondary" href="{% url 'remarcar_horario' proximo_horario.id %}">Remarcar</a>
+            <div class="line" style="color:var(--muted);font-size:.9rem;">
+              <span>{{ proximo_horario.barbeiro.nome }}</span>
+              <span>{{ proximo_horario.servico.nome }}</span>
             </div>
-          </div>
-        {% else %}
-          <div class="dash-sub">Você não tem horários futuros. Que tal agendar?</div>
-          <a class="btn-primary" href="{% url 'agendar_horario' %}">Agendar</a>
-        {% endif %}
-      </section>
-
-      <!-- Últimos atendimentos -->
-      <section class="dash-card">
-        <div class="dash-title">
-          <span>Últimos atendimentos</span>
-          <a class="dash-sub" href="{% url 'meus_horarios' %}">Ver todos →</a>
-        </div>
-
-        {% if ultimos_atendimentos %}
-          <div class="mini-list">
-            {% for a in ultimos_atendimentos %}
-              <a class="mini-item" href="{% url 'detalhe_atendimento' a.id %}">
-                <div class="mini-main">
-                  <div class="mini-title">{{ a.servico.nome }} • {{ a.barbeiro.nome }}</div>
-                  <div class="mini-meta">{{ a.data|date:"d/m/Y" }} às {{ a.hora|time:"H:i" }}</div>
-                </div>
-                <span class="status-pill success">{{ a.status }}</span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <a class="btn-primary" style="padding:8px 12px;font-size:.85rem;" href="{% url 'meus_horarios' %}">
+                Gerenciar
               </a>
-            {% endfor %}
+              <a class="btn-secondary" style="padding:8px 12px;font-size:.85rem;" href="{% url 'remarcar_horario' proximo_horario.id %}">
+                Remarcar
+              </a>
+            </div>
           </div>
-        {% else %}
-          <div class="dash-sub">Nenhum atendimento concluído ainda.</div>
-        {% endif %}
-      </section>
-    </div>
+          {% else %}
+          <div class="hero-next">
+            <strong>Sem horários futuros</strong>
+            <div style="color:var(--muted);font-size:.92rem;">
+              Agende quando quiser — a agenda fica aberta 24 horas.
+            </div>
+            <a class="btn-primary" style="width:max-content;padding:8px 12px;font-size:.85rem;" href="{% url 'agendar_horario' %}">
+              Agendar
+            </a>
+          </div>
+          {% endif %}
+        </aside>
+      </div>
+    </section>
 
-    <!-- ===== BARBEARIAS ===== -->
-    <section id="barbearias">
+    <!-- BENEFÍCIOS -->
+    <section class="section" id="beneficios">
       <div class="section-head">
         <div>
-          <h2>Barbearias registradas ({{ page_obj.paginator.count }})</h2>
+          <h2>Uma experiência mais moderna</h2>
+          <div class="subtitle">Tudo pensado pra você decidir rápido e agendar melhor.</div>
+        </div>
+      </div>
+
+      <div class="features">
+        <article class="feature">
+          <div class="feature-icon">📍</div>
+          <h3>Perto de você</h3>
+          <p>Descubra barbearias na sua região, com localização, fotos e endereço.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">⭐</div>
+          <h3>Notas confiáveis</h3>
+          <p>Avaliações reais de clientes para você escolher sem medo.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">🗓️</div>
+          <h3>Agende sem esforço</h3>
+          <p>Escolha serviço, barbeiro e horário em segundos — sem espera.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- BARBEARIAS -->
+    <section class="section" id="barbearias">
+      <div class="section-head">
+        <div>
+          <h2>Barbearias disponíveis ({{ page_obj.paginator.count }})</h2>
           <div class="subtitle">Busque por nome/endereço e ordene como preferir.</div>
         </div>
 
@@ -512,26 +620,7 @@
         </form>
       </div>
 
-      <!-- Skeletons -->
-      <div id="skeleton-grid" class="grid skeleton-grid hidden" aria-hidden="true">
-        {% for _ in "12345678" %}
-        <article class="card">
-          <div class="card-media skeleton-block"></div>
-          <div class="card-body">
-            <div class="skeleton-line w-70"></div>
-            <div class="skeleton-line w-40"></div>
-            <div class="skeleton-line w-90"></div>
-            <div class="skeleton-actions">
-              <div class="skeleton-pill w-40"></div>
-              <div class="skeleton-pill w-30"></div>
-            </div>
-          </div>
-        </article>
-        {% endfor %}
-      </div>
-
-      <!-- Grid real -->
-      <div id="real-grid" class="grid">
+      <div class="grid">
         {% for b in barbearias %}
         <article class="card">
           <div class="card-media">
@@ -562,7 +651,6 @@
         {% endfor %}
       </div>
 
-      <!-- Paginação -->
       {% if is_paginated %}
       <nav class="pagination">
         {% if page_obj.has_previous %}
@@ -607,47 +695,19 @@
       </nav>
       {% endif %}
     </section>
+
   </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:var(--text);">
+      <div style="display:flex;align-items:center;gap:8px;font-weight:900;color:#fff;">
         <span class="logo-mark" style="width:28px;height:28px;font-size:.9rem;">B</span>
         BarberFinder
       </div>
       <div>© {{ year }} BarberFinder — Todos os direitos reservados.</div>
     </div>
   </footer>
-
-  <!-- Skeleton: ativa durante submit/paginação -->
-  <script>
-    (function(){
-      const skeleton = document.getElementById("skeleton-grid");
-      const real = document.getElementById("real-grid");
-      const filtersForm = document.querySelector(".filters");
-      const pagination = document.querySelector(".pagination");
-
-      function showSkeleton(){
-        if(skeleton && real){
-          skeleton.classList.remove("hidden");
-          real.classList.add("hidden");
-          window.scrollTo({ top: real.offsetTop - 120, behavior: "smooth" });
-        }
-      }
-
-      if(filtersForm){
-        filtersForm.addEventListener("submit", function(){ showSkeleton(); });
-      }
-
-      if(pagination){
-        pagination.addEventListener("click", function(e){
-          const a = e.target.closest("a");
-          if(a) showSkeleton();
-        });
-      }
-    })();
-  </script>
 
 </body>
 </html>

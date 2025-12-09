@@ -1,0 +1,58 @@
+{% extends "base/base_cliente.html" %}
+{% block title %}Painel do barbeiro{% endblock %}
+
+{% block content %}
+<section class="hero hero--simple">
+  <div class="hero-text">
+    <h1>Olá, {{ request.user.first_name|default:request.user.username }} 👋</h1>
+    <p>Seu painel de atendimentos de hoje.</p>
+
+    <div class="hero-actions">
+      <a class="btn-primary" href="{% url 'agenda_barbeiro' %}">Ver agenda completa</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="cards-grid">
+    <article class="card">
+      <div class="card-icon">⏳</div>
+      <h3>Pendentes hoje</h3>
+      <p>{{ pendentes }} agendamentos</p>
+    </article>
+    <article class="card">
+      <div class="card-icon">✅</div>
+      <h3>Confirmados hoje</h3>
+      <p>{{ confirmados }} agendamentos</p>
+    </article>
+    <article class="card">
+      <div class="card-icon">📅</div>
+      <h3>Total hoje</h3>
+      <p>{{ ag_hoje|length }} agendamentos</p>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <h2>Próximos atendimentos</h2>
+      <div class="subtitle">Seus próximos 5 horários.</div>
+    </div>
+  </div>
+
+  <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+    {% for ag in proximos %}
+      <article class="card">
+        <h3>{{ ag.servico.nome }}</h3>
+        <p>{{ ag.data|date:"d/m/Y" }} • {{ ag.hora|time:"H:i" }}</p>
+        <p>Cliente: {{ ag.cliente.first_name|default:ag.cliente.username }}</p>
+        <span class="pill warn">{{ ag.get_status_display }}</span>
+        <a class="card-link" href="{% url 'detalhe_agendamento_barbeiro' ag.id %}">Abrir →</a>
+      </article>
+    {% empty %}
+      <div class="empty">Nenhum atendimento futuro.</div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

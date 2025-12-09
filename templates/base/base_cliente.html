@@ -26,19 +26,51 @@
     </nav>
 
     <div class="header-right">
-      <button class="btn-ghost notifications" type="button" title="Notificações">
-        🔔
-      </button>
-      <div class="user-menu">
+    <button class="btn-ghost notifications" type="button" title="Notificações">🔔</button>
+
+    <div class="user-dropdown" id="userDropdown">
+      <button class="user-trigger" type="button" aria-haspopup="menu" aria-expanded="false">
         <div class="user-avatar">
           <span>{{ request.user.first_name|default:"C"|slice:":1" }}</span>
         </div>
         <div class="user-info">
           <span class="user-name">{{ request.user.first_name|default:"Cliente" }}</span>
-          <span class="user-role">Cliente</span>
+          <span class="user-role">
+            {% if request.user.perfil_barbeiro %}Barbeiro{% else %}Cliente{% endif %}
+          </span>
+        </div>
+        <span class="chev">▾</span>
+      </button>
+
+      <div class="user-menu-panel" role="menu" aria-label="Menu do usuário">
+        <div class="user-menu-head">
+          <div class="user-avatar lg">
+            <span>{{ request.user.first_name|default:"C"|slice:":1" }}</span>
+          </div>
+          <div>
+            <div class="user-name big">{{ request.user.get_full_name|default:request.user.username }}</div>
+            <div class="user-email">{{ request.user.email }}</div>
+          </div>
+        </div>
+
+        <div class="user-menu-actions">
+          {% if request.user.perfil_barbeiro %}
+            <a class="menu-item" href="{% url 'dashboard_barbeiro' %}">💼 Painel do barbeiro</a>
+          {% else %}
+            <a class="menu-item" href="{% url 'home_cliente' %}">🏠 Meu painel</a>
+          {% endif %}
+
+          <a class="menu-item" href="{% url 'meus_horarios' %}">📅 Meus horários</a>
+          <a class="menu-item" href="{% url 'lista_servicos' %}">⭐ Serviços</a>
+
+          <div class="menu-sep"></div>
+
+          <a class="menu-item danger" href="{% url 'logout' %}">🚪 Sair</a>
         </div>
       </div>
     </div>
+  </div>
+
   </header>
 
   <!-- CONTEÚDO PRINCIPAL -->
@@ -59,5 +91,34 @@
       <span class="footer-hint">Feito com ✂️ &amp; ☕</span>
     </div>
   </footer>
+
+  <script>
+  (function(){
+    const dd = document.getElementById("userDropdown");
+    if(!dd) return;
+
+    const trigger = dd.querySelector(".user-trigger");
+
+    function close(){
+      dd.classList.remove("open");
+      trigger.setAttribute("aria-expanded", "false");
+    }
+    function toggle(){
+      const open = dd.classList.toggle("open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    trigger.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      toggle();
+    });
+
+    document.addEventListener("click", close);
+    document.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape") close();
+    });
+  })();
+</script>
+
 </body>
 </html>

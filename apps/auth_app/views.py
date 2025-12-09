@@ -1,9 +1,10 @@
 from django.views import View
+from django.contrib import messages
+from django.contrib.auth import logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 
 class AuthView(View):
     template_name = 'from_app/auth_app/login_page.html'
@@ -71,3 +72,14 @@ class AuthView(View):
 
         messages.success(request, "Conta criada com sucesso! Você já pode fazer login.")
         return redirect('auth')
+
+@login_required
+def redirect_after_login(request):
+    if hasattr(request.user, "perfil_barbeiro"):
+        return redirect("dashboard_barbeiro")
+    return redirect("redirect_after_login")
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect("landing")

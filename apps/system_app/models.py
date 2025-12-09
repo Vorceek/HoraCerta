@@ -13,6 +13,12 @@ class Barbearia(models.Model):
 
 
 class Barbeiro(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="perfil_barbeiro",
+        null=True, blank=True
+    )
     barbearia = models.ForeignKey(Barbearia, on_delete=models.CASCADE, related_name="barbeiros", null=True, blank=True)
     nome = models.CharField(max_length=100)
     cadeira = models.CharField(max_length=10, blank=True, null=True)
